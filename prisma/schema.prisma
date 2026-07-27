@@ -1,0 +1,86 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Product {
+  id               String   @id @default(uuid())
+  name             String
+  slug             String   @unique
+  category         String
+  description      String
+  specifications   String
+  applications     String
+  availableSizes   String
+  packagingOptions String
+  countryOfOrigin  String   @default("India")
+  moq              String
+  deliveryTime     String
+  imageUrl         String
+  bannerUrl        String?
+  featured         Boolean  @default(false)
+  createdAt        DateTime @default(now())
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  slug        String   @unique
+  description String
+  bannerImage String
+}
+
+model SupplierRegistration {
+  id                 String   @id @default(uuid())
+  companyName        String
+  products           String
+  productionCapacity String
+  certifications     String
+  factoryAddress     String
+  contactPerson      String
+  phone              String
+  email              String
+  website            String?
+  status             String   @default("PENDING")
+  createdAt          DateTime @default(now())
+}
+
+model ProductRequest {
+  id                     String   @id @default(uuid())
+  productName            String
+  quantity               String
+  packaging              String
+  destinationCountry     String
+  targetPrice            String?
+  additionalRequirements String?
+  referenceImageUrl      String?
+  status                 String   @default("NEW")
+  createdAt              DateTime @default(now())
+}
+
+model QuoteRequest {
+  id              String   @id @default(uuid())
+  companyName     String
+  country         String
+  product         String
+  quantity        String
+  packaging       String
+  destinationPort String
+  incoterm        String
+  message         String?
+  status          String   @default("NEW")
+  createdAt       DateTime @default(now())
+}
+
+model ContactSubmission {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  createdAt DateTime @default(now())
+}
