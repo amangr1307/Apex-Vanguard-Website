@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Search, FileText } from "lucide-react";
 
-export function CTASection() {
+export default function CTASection() {
   return (
     <section className="py-24 sm:py-32 bg-apex-purple text-white relative overflow-hidden">
       {/* Background Accent Graphics */}
@@ -56,6 +56,3 @@ export function CTASection() {
     </section>
   );
 }
-
-export default CTASection;
-
