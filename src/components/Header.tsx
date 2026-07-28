@@ -1,137 +1,171 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "next-themes";
-import { Sun, Moon, Menu, X, ArrowUpRight, ShieldCheck, Globe } from "lucide-react";
+import {
+  Globe,
+  Menu,
+  X,
+  Search,
+  ChevronDown,
+  PhoneCall,
+  ShieldCheck,
+  PackagePlus,
+  Sparkles,
+} from "lucide-react";
+import { useCurrency, CURRENCIES, CurrencyCode } from "@/context/CurrencyContext";
 
-const NAV_LINKS = [
-  { name: "Home", href: "/" },
-  { name: "About Us", href: "/about" },
-  { name: "Products", href: "/products" },
-  { name: "Industries", href: "/industries" },
-  { name: "Global Sourcing", href: "/global-sourcing" },
-  { name: "Become Supplier", href: "/become-supplier" },
-  { name: "Contact", href: "/contact" },
-];
-
-export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
+export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
   const pathname = usePathname();
+  const { currency, setCurrency, currentCurrencyDetails } = useCurrency();
 
-  useEffect(() => {
-    setMounted(true);
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "About Us", href: "/about" },
+    { name: "Products", href: "/products" },
+    { name: "Services", href: "/services" },
+    { name: "Industries", href: "/industries" },
+    { name: "Become a Supplier", href: "/become-supplier" },
+    { name: "Resources", href: "/resources" },
+    { name: "Contact", href: "/contact" },
+  ];
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const isActive = (path: string) => pathname === path;
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "glass-nav py-3.5 border-b border-apex-border/80 dark:border-apex-borderDark/80 shadow-apex-soft"
-          : "bg-transparent py-5"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-apex-purple flex items-center justify-center text-white shadow-md shadow-apex-purple/30 group-hover:scale-105 transition-transform duration-300">
-              <Globe className="w-5 h-5 animate-pulse" />
+    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/90 dark:bg-slate-950/90 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+      {/* Top Trade Utility Bar */}
+      <div className="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-6">
+            <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              Verified Govt Registered IEC & APEDA Exporter
+            </span>
+            <span className="hidden md:inline-block text-slate-400">|</span>
+            <span className="hidden md:inline-block text-slate-300">
+              Global Sourcing & Trade Headquarters — Tamil Nadu, India
+            </span>
+          </div>
+
+          <div className="flex items-center gap-5">
+            {/* Currency Selector */}
+            <div className="relative">
+              <button
+                onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
+                className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded-md text-xs font-semibold border border-slate-700 transition-colors"
+                aria-label="Select Currency"
+              >
+                <Globe className="w-3.5 h-3.5 text-sky-400" />
+                <span>
+                  {currentCurrencyDetails.code} ({currentCurrencyDetails.symbol})
+                </span>
+                <ChevronDown className="w-3 h-3 text-slate-400" />
+              </button>
+
+              {currencyDropdownOpen && (
+                <div className="absolute right-0 mt-1.5 w-40 bg-slate-900 border border-slate-700 rounded-lg shadow-xl py-1 z-50 animate-in fade-in slide-in-from-top-2">
+                  <div className="px-3 py-1.5 text-[10px] uppercase font-bold text-slate-400 border-b border-slate-800">
+                    Select Currency
+                  </div>
+                  {(Object.keys(CURRENCIES) as CurrencyCode[]).map((code) => (
+                    <button
+                      key={code}
+                      onClick={() => {
+                        setCurrency(code);
+                        setCurrencyDropdownOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-1.5 text-xs flex items-center justify-between hover:bg-slate-800 transition-colors ${
+                        currency === code ? "text-emerald-400 font-bold bg-slate-800/60" : "text-slate-300"
+                      }`}
+                    >
+                      <span>{CURRENCIES[code].name}</span>
+                      <span className="font-mono text-slate-400">{CURRENCIES[code].symbol}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-lg sm:text-xl tracking-tight text-apex-dark dark:text-white leading-tight">
-                APEX <span className="text-apex-purple">VANGUARD</span>
+
+            <Link
+              href="/admin"
+              className="text-slate-400 hover:text-slate-200 font-medium transition-colors hidden sm:inline-block"
+            >
+              Admin Portal
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Navigation Bar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          {/* Brand Logo */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="h-11 w-11 rounded-xl bg-gradient-to-tr from-sky-600 via-indigo-600 to-blue-700 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-600/20 group-hover:scale-105 transition-transform">
+              AV
+            </div>
+            <div>
+              <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white flex items-center gap-1">
+                APEX VANGUARD
               </span>
-              <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-apex-grey dark:text-gray-400">
-                Global Sourcing
+              <span className="text-[10px] font-bold tracking-widest text-sky-600 dark:text-sky-400 uppercase block -mt-1">
+                GLOBAL TRADING & SOURCING
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-7">
-            {NAV_LINKS.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className={`text-sm font-medium transition-colors duration-200 relative py-1 ${
-                    isActive
-                      ? "text-apex-purple font-semibold"
-                      : "text-apex-dark/80 dark:text-gray-300 hover:text-apex-purple dark:hover:text-white"
-                  }`}
-                >
-                  {link.name}
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeNavIndicator"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-apex-purple rounded-full"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              );
-            })}
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`px-3 py-2 rounded-lg text-sm font-semibold transition-all ${
+                  isActive(link.href)
+                    ? "text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-950/50 font-bold"
+                    : "text-slate-700 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-slate-100/60 dark:hover:bg-slate-900/60"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
           </nav>
 
-          {/* Actions */}
-          <div className="hidden sm:flex items-center gap-3">
-            {/* Theme Toggle */}
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              aria-label="Toggle theme"
-              className="p-2.5 rounded-full text-apex-dark dark:text-white bg-apex-surface dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors"
+          {/* Action CTAs */}
+          <div className="hidden lg:flex items-center gap-3">
+            <Link
+              href="/request-product"
+              className="group relative inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-xs shadow-md shadow-emerald-600/20 hover:from-emerald-500 hover:to-teal-500 hover:shadow-lg transition-all"
             >
-              {mounted && theme === "dark" ? (
-                <Sun className="w-4 h-4 text-yellow-400" />
-              ) : (
-                <Moon className="w-4 h-4 text-apex-dark" />
-              )}
-            </button>
+              <PackagePlus className="w-4 h-4 text-emerald-200 group-hover:rotate-12 transition-transform" />
+              <span>Request Any Product</span>
+            </Link>
 
-            {/* Request Quote Button */}
             <Link
               href="/request-quote"
-              className="inline-flex items-center gap-2 bg-apex-purple hover:bg-apex-purple-hover text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-300 shadow-lg shadow-apex-purple/25 hover:shadow-apex-purple/40 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors shadow-sm"
             >
-              <span>Request Quote</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <span>Get RFQ Quote</span>
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex sm:hidden items-center gap-2">
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              aria-label="Toggle theme"
-              className="p-2 rounded-full text-apex-dark dark:text-white bg-apex-surface dark:bg-zinc-800"
+          {/* Mobile Hamburger Button */}
+          <div className="flex lg:hidden items-center gap-2">
+            <Link
+              href="/request-product"
+              className="p-2 rounded-lg bg-emerald-600 text-white text-xs font-bold flex items-center gap-1"
             >
-              {mounted && theme === "dark" ? (
-                <Sun className="w-4 h-4 text-yellow-400" />
-              ) : (
-                <Moon className="w-4 h-4 text-apex-dark" />
-              )}
-            </button>
+              <PackagePlus className="w-4 h-4" />
+            </Link>
+
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl text-apex-dark dark:text-white bg-apex-surface dark:bg-zinc-800 focus:outline-none"
-              aria-label="Toggle menu"
+              className="p-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+              aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -139,51 +173,46 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="lg:hidden bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border-b border-apex-border dark:border-apex-borderDark px-4 pt-4 pb-6 mt-2"
-          >
-            <div className="flex flex-col gap-3">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`text-base font-medium py-2 px-3 rounded-lg transition-colors ${
-                    pathname === link.href
-                      ? "bg-apex-purple-light text-apex-purple font-semibold"
-                      : "text-apex-dark dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-800"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              <div className="pt-2 border-t border-gray-100 dark:border-zinc-800 flex flex-col gap-2">
-                <Link
-                  href="/request-product"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center text-sm font-semibold py-2.5 px-4 rounded-full border border-apex-border dark:border-zinc-700 text-apex-dark dark:text-white"
-                >
-                  Request Product
-                </Link>
-                <Link
-                  href="/request-quote"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center text-sm font-semibold py-2.5 px-4 rounded-full bg-apex-purple text-white shadow-md shadow-apex-purple/20"
-                >
-                  Request Quote
-                </Link>
-              </div>
+      {/* Mobile Drawer Menu */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 pt-3 pb-6 animate-in slide-in-from-top duration-200">
+          <div className="flex flex-col gap-1.5">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                  isActive(link.href)
+                    ? "text-sky-600 bg-sky-50 dark:bg-sky-950/60 dark:text-sky-400 font-bold"
+                    : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-2.5">
+              <Link
+                href="/request-product"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm shadow-md"
+              >
+                <PackagePlus className="w-4 h-4" />
+                Request Any Product (Custom Sourcing)
+              </Link>
+
+              <Link
+                href="/request-quote"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm"
+              >
+                Get Professional Quote (RFQ)
+              </Link>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      )}
     </header>
   );
-}
+};

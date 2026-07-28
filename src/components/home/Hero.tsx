@@ -1,113 +1,125 @@
 "use client";
 
-import Image from "next/image";
+import React, { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowUpRight, ShieldCheck, Play, Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
+import {
+  Search,
+  PackagePlus,
+  ArrowRight,
+  ShieldCheck,
+  Globe2,
+  Ship,
+  CheckCircle,
+} from "lucide-react";
+import { useCurrency } from "@/context/CurrencyContext";
 
-export default function Hero() {
+export const Hero: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+  const { currentCurrencyDetails } = useCurrency();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      router.push("/products");
+    }
+  };
+
   return (
-    <section className="relative w-full h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-apex-dark text-white -mt-20">
-      {/* Background Image with Slow Zoom */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=2000&q=85"
-          alt="Apex Vanguard Global Sourcing Shipping Logistics"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover animate-slow-zoom opacity-40 mix-blend-luminosity scale-105"
-        />
-        {/* Dark Glassmorphism Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-apex-dark via-apex-dark/70 to-apex-dark/40" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-apex-purple/20 via-transparent to-transparent opacity-60" />
+    <section className="relative overflow-hidden bg-slate-950 text-white font-sans py-20 lg:py-28">
+      {/* Background Graphic Accents */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full opacity-20 pointer-events-none">
+        <div className="absolute top-10 right-10 w-96 h-96 bg-sky-500 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-10 left-10 w-96 h-96 bg-indigo-500 rounded-full blur-[120px]"></div>
       </div>
 
-      {/* Hero Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-16 sm:pt-20">
-        {/* Verification Pill */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs sm:text-sm font-medium mb-8 text-zinc-200"
-        >
-          <ShieldCheck className="w-4 h-4 text-apex-purple animate-pulse" />
-          <span>Verified Export House • ISO & APEDA Certified</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-apex-purple" />
-          <span className="hidden sm:inline text-zinc-400">Global Logistics Ready</span>
-        </motion.div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center max-w-4xl mx-auto space-y-6">
+          {/* Trust Badge Pill */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 border border-slate-800 shadow-inner">
+            <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-xs font-bold text-slate-200 tracking-wide">
+              Connecting Global Buyers with Verified Indian Manufacturers
+            </span>
+          </div>
 
-        {/* Hero Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3 }}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.08] max-w-5xl mx-auto"
-        >
-          Connecting Global Buyers with <br className="hidden sm:inline" />
-          <span className="bg-gradient-to-r from-white via-zinc-100 to-apex-purple bg-clip-text text-transparent">
-            Trusted Indian Manufacturers.
-          </span>
-        </motion.h1>
+          {/* Main Hero Headline */}
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
+            Apex Vanguard Global
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-indigo-300 to-teal-300">
+              International Trade & Sourcing House
+            </span>
+          </h1>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.5 }}
-          className="mt-6 sm:mt-8 text-base sm:text-xl text-zinc-300 max-w-3xl mx-auto font-normal leading-relaxed text-balance"
-        >
-          Premium sourcing solutions across Food Products, Construction Materials, Industrial Materials and Textiles.
-        </motion.p>
+          {/* Subtitle */}
+          <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            Your single trusted partner for bulk agricultural commodities, structural steel, natural marble, industrial metals, textiles, and engineering polymers. Delivered with strict pre-shipment quality inspection and end-to-end maritime freight.
+          </p>
 
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.7 }}
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
-        >
-          <Link
-            href="/products"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white text-apex-dark font-bold text-base px-8 py-4 rounded-full hover:bg-zinc-100 transition-all duration-300 shadow-xl hover:scale-105"
-          >
-            <span>Explore Products</span>
-            <ArrowUpRight className="w-5 h-5 text-apex-purple" />
-          </Link>
+          {/* Live Product Search Bar */}
+          <form onSubmit={handleSearch} className="max-w-2xl mx-auto pt-4">
+            <div className="relative flex items-center bg-slate-900/90 border border-slate-700/80 rounded-2xl p-2 shadow-2xl focus-within:border-sky-500 transition-colors">
+              <Search className="w-5 h-5 text-slate-400 ml-3 shrink-0" />
+              <input
+                type="text"
+                placeholder="Search products (e.g. Coconuts, TMT Steel, Copper Cathodes, Yarns, Polymers...)"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-3 py-2.5 text-sm bg-transparent text-white placeholder-slate-400 focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="px-5 py-2.5 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold transition-colors shrink-0 flex items-center gap-1.5"
+              >
+                <span>Search</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </form>
 
-          <Link
-            href="/request-quote"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-apex-purple hover:bg-apex-purple-hover text-white font-bold text-base px-8 py-4 rounded-full transition-all duration-300 shadow-xl shadow-apex-purple/30 hover:scale-105"
-          >
-            <span>Request Quote</span>
-            <ArrowUpRight className="w-5 h-5" />
-          </Link>
-        </motion.div>
+          {/* Action CTA Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+            <Link
+              href="/request-product"
+              className="inline-flex items-center gap-2.5 px-7 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-extrabold text-sm shadow-lg shadow-emerald-500/25 hover:from-emerald-400 hover:to-teal-400 transition-all hover:scale-[1.02]"
+            >
+              <PackagePlus className="w-5 h-5" />
+              <span>Request Any Product (Custom Sourcing)</span>
+            </Link>
 
-        {/* AI Video Reel Badge Placeholder */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="mt-14 inline-flex items-center gap-2 text-xs text-zinc-400 bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-800"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-apex-purple" />
-          <span>Cinematic Preview Mode (AI Video Ready)</span>
-        </motion.div>
-      </div>
+            <Link
+              href="/request-quote"
+              className="inline-flex items-center gap-2.5 px-6 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-sm border border-slate-700 transition-colors"
+            >
+              <span>Request a Quote (RFQ)</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
 
-      {/* Bottom Scroll Down Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 hidden sm:flex flex-col items-center gap-2 opacity-60">
-        <span className="text-[10px] uppercase tracking-widest text-zinc-400">Scroll Down</span>
-        <div className="w-5 h-9 rounded-full border-2 border-zinc-500 flex justify-center p-1">
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-            className="w-1.5 h-1.5 rounded-full bg-apex-purple"
-          />
+          {/* Key Value Props Pill Bar */}
+          <div className="pt-8 border-t border-slate-900 max-w-3xl mx-auto flex flex-wrap items-center justify-center gap-6 text-xs font-semibold text-slate-400">
+            <span className="flex items-center gap-1.5">
+              <CheckCircle className="w-4 h-4 text-emerald-400" />
+              APEDA & FSSAI Compliant
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle className="w-4 h-4 text-emerald-400" />
+              Incoterms: FOB, CIF, CFR, EXW, DDP
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle className="w-4 h-4 text-emerald-400" />
+              SGS & Intertek Inspected
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle className="w-4 h-4 text-emerald-400" />
+              Quotes in {currentCurrencyDetails.code} ({currentCurrencyDetails.symbol})
+            </span>
+          </div>
         </div>
       </div>
     </section>
   );
-}
+};

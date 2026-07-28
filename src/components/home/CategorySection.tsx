@@ -1,126 +1,79 @@
 "use client";
 
-import Image from "next/image";
+import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight, ChevronLeft, ChevronRight, Layers } from "lucide-react";
-import { ProductItem } from "@/lib/data";
-import ProductCard from "./ProductCard";
-import { useRef } from "react";
+import Image from "next/image";
+import { CATEGORIES_INFO } from "@/lib/data";
+import { ArrowRight, Layers } from "lucide-react";
 
-interface CategorySectionProps {
-  categoryId: string;
-  categoryName: string;
-  subtitle: string;
-  bannerImage: string;
-  products: ProductItem[];
-  reverseBanner?: boolean;
-  onQuickView?: (product: ProductItem) => void;
-}
-
-export default function CategorySection({
-  categoryId,
-  categoryName,
-  subtitle,
-  bannerImage,
-  products,
-  onQuickView,
-}: CategorySectionProps) {
-  const sliderRef = useRef<HTMLDivElement>(null);
-
-  const scrollSlider = (direction: "left" | "right") => {
-    if (sliderRef.current) {
-      const scrollAmount = direction === "left" ? -400 : 400;
-      sliderRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    }
-  };
-
+export const CategorySection: React.FC = () => {
   return (
-    <section id={categoryId} className="py-20 sm:py-28 border-t border-apex-border dark:border-apex-borderDark">
+    <section className="py-20 bg-slate-100 dark:bg-slate-950 font-sans border-b border-slate-200 dark:border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Full-width Cinematic Premium Banner */}
-        <div className="relative rounded-4xl overflow-hidden shadow-2xl h-[360px] sm:h-[420px] mb-12 group">
-          <Image
-            src={bannerImage}
-            alt={categoryName}
-            fill
-            sizes="100vw"
-            className="object-cover transition-transform duration-1000 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-          
-          <div className="absolute inset-0 p-8 sm:p-14 flex flex-col justify-end max-w-2xl text-white">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="space-y-4"
-            >
-              <span className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-apex-purple bg-white/90 backdrop-blur-md px-3.5 py-1 rounded-full w-fit">
-                <Layers className="w-3.5 h-3.5" />
-                Featured Category
-              </span>
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-                {categoryName}
-              </h2>
-              <p className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed">
-                {subtitle}
-              </p>
-              <div className="pt-2">
-                <Link
-                  href={`/products?category=${categoryId}`}
-                  className="inline-flex items-center gap-2 bg-white text-apex-dark hover:bg-apex-purple hover:text-white text-sm font-bold px-6 py-3 rounded-full transition-all duration-300 shadow-lg"
-                >
-                  <span>Explore {categoryName}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Section Header & Slider Controls */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h3 className="text-xl sm:text-2xl font-bold text-apex-dark dark:text-white">
-              Catalog Items in {categoryName}
-            </h3>
-            <p className="text-xs sm:text-sm text-apex-grey dark:text-gray-400 mt-1">
-              Export-ready verified items with instant RFQ capability.
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-sky-600 dark:text-sky-400 bg-sky-100 dark:bg-sky-950 px-3 py-1 rounded-full border border-sky-200 dark:border-sky-800">
+              Product Lines & Portfolios
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              Comprehensive Trade Categories
+            </h2>
+            <p className="text-sm text-slate-600 dark:text-slate-400">
+              Explore our core product portfolios direct from audited Indian manufacturers, equipped with complete technical specifications and export packaging options.
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => scrollSlider("left")}
-              aria-label="Scroll left"
-              className="p-2.5 rounded-full bg-apex-surface dark:bg-zinc-800 text-apex-dark dark:text-white hover:bg-apex-purple hover:text-white transition-colors"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={() => scrollSlider("right")}
-              aria-label="Scroll right"
-              className="p-2.5 rounded-full bg-apex-surface dark:bg-zinc-800 text-apex-dark dark:text-white hover:bg-apex-purple hover:text-white transition-colors"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-2 text-sm font-bold text-sky-600 dark:text-sky-400 hover:text-sky-500 transition-colors shrink-0"
+          >
+            <span>View All Products</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
-        {/* Horizontal Slider of Product Cards */}
-        <div
-          ref={sliderRef}
-          className="flex items-stretch gap-6 overflow-x-auto no-scrollbar pb-6 pt-2 snap-x snap-mandatory"
-        >
-          {products.map((product) => (
-            <div key={product.id} className="snap-start">
-              <ProductCard product={product} onQuickView={onQuickView} />
-            </div>
+        {/* 6 Category Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {CATEGORIES_INFO.map((cat) => (
+            <Link
+              key={cat.id}
+              href={`/products?category=${cat.id}`}
+              className="group relative overflow-hidden rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+            >
+              {/* Image Banner Container */}
+              <div className="relative h-56 w-full overflow-hidden bg-slate-800">
+                <img
+                  src={cat.bannerImage}
+                  alt={cat.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                
+                <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-slate-900/90 text-white font-bold text-xs backdrop-blur-md border border-slate-700">
+                  {cat.itemCount}+ Featured Products
+                </span>
+              </div>
+
+              {/* Text Body */}
+              <div className="p-6 flex flex-col justify-between flex-1 space-y-4">
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+                    {cat.name}
+                  </h3>
+                  <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    {cat.description}
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-bold text-sky-600 dark:text-sky-400">
+                  <span>Browse Category Specs</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
     </section>
   );
-}
+};

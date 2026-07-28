@@ -1,32 +1,34 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { FileText, CheckCircle2, Loader2, ArrowUpRight } from "lucide-react";
+import { Send, CheckCircle2, FileText, Globe, Ship, ShieldCheck } from "lucide-react";
 
-function RequestQuoteFormContent() {
+function RequestQuoteContent() {
   const searchParams = useSearchParams();
-  const initialProduct = searchParams.get("product") || "";
+  const prefilledProduct = searchParams.get("product") || "";
 
   const [formData, setFormData] = useState({
     companyName: "",
     country: "",
-    product: initialProduct,
+    product: prefilledProduct,
     quantity: "",
     packaging: "",
     destinationPort: "",
     incoterm: "FOB",
+    email: "",
+    phone: "",
     message: "",
   });
 
-  useEffect(() => {
-    if (initialProduct) {
-      setFormData((prev) => ({ ...prev, product: initialProduct }));
-    }
-  }, [initialProduct]);
-
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (prefilledProduct) {
+      setFormData((prev) => ({ ...prev, product: prefilledProduct }));
+    }
+  }, [prefilledProduct]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +42,7 @@ function RequestQuoteFormContent() {
       });
 
       if (res.ok) {
-        setSuccess(true);
+        setSubmitted(true);
         setFormData({
           companyName: "",
           country: "",
@@ -49,6 +51,8 @@ function RequestQuoteFormContent() {
           packaging: "",
           destinationPort: "",
           incoterm: "FOB",
+          email: "",
+          phone: "",
           message: "",
         });
       }
@@ -60,191 +64,215 @@ function RequestQuoteFormContent() {
   };
 
   return (
-    <div className="bg-apex-surface dark:bg-zinc-900 p-8 sm:p-12 rounded-4xl border border-apex-border dark:border-apex-borderDark shadow-xl">
-      {success ? (
-        <div className="text-center py-12 space-y-4">
-          <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-500 mx-auto flex items-center justify-center">
-            <CheckCircle2 className="w-8 h-8" />
-          </div>
-          <h3 className="text-2xl font-bold text-apex-dark dark:text-white">RFQ Successfully Dispatched</h3>
-          <p className="text-xs sm:text-sm text-apex-grey dark:text-gray-400 max-w-md mx-auto">
-            Thank you. An export trade specialist has been assigned to your quotation request. Check your inbox for our official Proforma Quote.
+    <main className="min-h-screen bg-slate-950 text-white font-sans">
+      {/* Banner */}
+      <section className="py-16 bg-slate-900 border-b border-slate-800 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+          <span className="text-xs font-extrabold uppercase tracking-widest text-sky-400 bg-sky-950 px-3.5 py-1.5 rounded-full border border-sky-800">
+            Professional RFQ Desk
+          </span>
+          <h1 className="text-4xl font-black text-white tracking-tight">
+            Request a Formal Quotation (RFQ)
+          </h1>
+          <p className="text-sm text-slate-300 max-w-2xl mx-auto">
+            Submit your order parameters to receive a comprehensive Proforma Invoice with Incoterms 2020 pricing, ocean freight schedules, and payment terms.
           </p>
-          <button
-            onClick={() => setSuccess(false)}
-            className="mt-4 text-xs font-bold text-apex-purple underline"
-          >
-            Request another quotation
-          </button>
         </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-apex-dark dark:text-gray-200 mb-2">
-                Company / Buyer Name *
-              </label>
-              <input
-                type="text"
-                required
-                placeholder="e.g. Global Import Corp Ltd"
-                value={formData.companyName}
-                onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                className="w-full bg-white dark:bg-zinc-800 border border-apex-border dark:border-zinc-700 rounded-xl px-4 py-3 text-xs text-apex-dark dark:text-white focus:outline-none focus:border-apex-purple"
-              />
-            </div>
+      </section>
 
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-apex-dark dark:text-gray-200 mb-2">
-                Buyer Country *
-              </label>
-              <input
-                type="text"
-                required
-                placeholder="e.g. United States / UAE / Germany"
-                value={formData.country}
-                onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                className="w-full bg-white dark:bg-zinc-800 border border-apex-border dark:border-zinc-700 rounded-xl px-4 py-3 text-xs text-apex-dark dark:text-white focus:outline-none focus:border-apex-purple"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-apex-dark dark:text-gray-200 mb-2">
-                Product Required *
-              </label>
-              <input
-                type="text"
-                required
-                placeholder="e.g. Cold Pressed Virgin Coconut Oil"
-                value={formData.product}
-                onChange={(e) => setFormData({ ...formData, product: e.target.value })}
-                className="w-full bg-white dark:bg-zinc-800 border border-apex-border dark:border-zinc-700 rounded-xl px-4 py-3 text-xs text-apex-dark dark:text-white focus:outline-none focus:border-apex-purple"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-apex-dark dark:text-gray-200 mb-2">
-                Order Quantity & Target Unit *
-              </label>
-              <input
-                type="text"
-                required
-                placeholder="e.g. 1 x 40ft Reefer Container"
-                value={formData.quantity}
-                onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                className="w-full bg-white dark:bg-zinc-800 border border-apex-border dark:border-zinc-700 rounded-xl px-4 py-3 text-xs text-apex-dark dark:text-white focus:outline-none focus:border-apex-purple"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-apex-dark dark:text-gray-200 mb-2">
-                Preferred Packaging *
-              </label>
-              <input
-                type="text"
-                required
-                placeholder="e.g. 210L HDPE Drums"
-                value={formData.packaging}
-                onChange={(e) => setFormData({ ...formData, packaging: e.target.value })}
-                className="w-full bg-white dark:bg-zinc-800 border border-apex-border dark:border-zinc-700 rounded-xl px-4 py-3 text-xs text-apex-dark dark:text-white focus:outline-none focus:border-apex-purple"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-apex-dark dark:text-gray-200 mb-2">
-                Destination Port *
-              </label>
-              <input
-                type="text"
-                required
-                placeholder="e.g. Jebel Ali / Port of Hamburg"
-                value={formData.destinationPort}
-                onChange={(e) => setFormData({ ...formData, destinationPort: e.target.value })}
-                className="w-full bg-white dark:bg-zinc-800 border border-apex-border dark:border-zinc-700 rounded-xl px-4 py-3 text-xs text-apex-dark dark:text-white focus:outline-none focus:border-apex-purple"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-apex-dark dark:text-gray-200 mb-2">
-                Incoterms 2020 *
-              </label>
-              <select
-                value={formData.incoterm}
-                onChange={(e) => setFormData({ ...formData, incoterm: e.target.value })}
-                className="w-full bg-white dark:bg-zinc-800 border border-apex-border dark:border-zinc-700 rounded-xl px-4 py-3 text-xs text-apex-dark dark:text-white focus:outline-none focus:border-apex-purple"
-              >
-                <option value="FOB">FOB (Free On Board)</option>
-                <option value="CIF">CIF (Cost, Insurance & Freight)</option>
-                <option value="CFR">CFR (Cost & Freight)</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-apex-dark dark:text-gray-200 mb-2">
-              Additional Notes / Payment Terms Preferred (LC / TT)
-            </label>
-            <textarea
-              rows={4}
-              placeholder="Specify target delivery timeline, target price per unit, LC at sight preferences..."
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full bg-white dark:bg-zinc-800 border border-apex-border dark:border-zinc-700 rounded-xl px-4 py-3 text-xs text-apex-dark dark:text-white focus:outline-none focus:border-apex-purple"
-            />
-          </div>
-
-          <div className="pt-4">
+      {/* Form Container */}
+      <section className="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {submitted ? (
+          <div className="p-10 rounded-3xl bg-slate-900 border border-sky-500/50 text-center space-y-4 shadow-2xl">
+            <CheckCircle2 className="w-16 h-16 text-sky-400 mx-auto" />
+            <h2 className="text-2xl font-bold text-white">Quotation Request Received!</h2>
+            <p className="text-sm text-slate-300 max-w-lg mx-auto leading-relaxed">
+              Our international trade desk is preparing your formal RFQ response. You will receive an official Proforma Invoice via email within 12-24 business hours.
+            </p>
             <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-4 rounded-full bg-apex-purple hover:bg-apex-purple-hover text-white font-bold text-sm transition-all shadow-xl shadow-apex-purple/30 flex items-center justify-center gap-2"
+              onClick={() => setSubmitted(false)}
+              className="px-6 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-colors"
             >
-              {loading ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  <span>Generating Quotation Request...</span>
-                </>
-              ) : (
-                <>
-                  <span>Dispatch RFQ to Sourcing Desk</span>
-                  <ArrowUpRight className="w-5 h-5" />
-                </>
-              )}
+              Submit Another RFQ
             </button>
           </div>
-        </form>
-      )}
-    </div>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            className="p-8 sm:p-10 rounded-3xl bg-slate-900 border border-slate-800 space-y-6 shadow-2xl"
+          >
+            <h3 className="text-xl font-bold text-white border-b border-slate-800 pb-4">
+              International Trade Quotation Details
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                  Company / Business Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Al-Futtaim Trading LLC"
+                  value={formData.companyName}
+                  onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-950 text-white border border-slate-800 text-xs focus:outline-none focus:border-sky-500"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                  Buyer Country *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. United Arab Emirates / Germany / USA"
+                  value={formData.country}
+                  onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-950 text-white border border-slate-800 text-xs focus:outline-none focus:border-sky-500"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                  Product Required *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Mature Husked Coconut / TMT Rebars / Copper Cathodes"
+                  value={formData.product}
+                  onChange={(e) => setFormData({ ...formData, product: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-950 text-white border border-slate-800 text-xs focus:outline-none focus:border-sky-500"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                  Order Quantity & Units *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. 1 x 40ft Container / 50 Metric Tons"
+                  value={formData.quantity}
+                  onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-950 text-white border border-slate-800 text-xs focus:outline-none focus:border-sky-500"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                  Packaging Preference *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. PP Mesh Bags / Jumbo Bulk Bags / Cartons"
+                  value={formData.packaging}
+                  onChange={(e) => setFormData({ ...formData, packaging: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-950 text-white border border-slate-800 text-xs focus:outline-none focus:border-sky-500"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                  Incoterm Selection 2020 *
+                </label>
+                <select
+                  value={formData.incoterm}
+                  onChange={(e) => setFormData({ ...formData, incoterm: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-950 text-white border border-slate-800 text-xs focus:outline-none focus:border-sky-500"
+                >
+                  <option value="FOB">FOB (Free On Board - Indian Port)</option>
+                  <option value="CIF">CIF (Cost, Insurance & Freight)</option>
+                  <option value="CFR">CFR (Cost & Freight)</option>
+                  <option value="EXW">EXW (Ex-Works Factory Door)</option>
+                  <option value="DDP">DDP (Delivered Duty Paid)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                  Destination Port & Country *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Jebel Ali Port, Dubai / Port of Rotterdam"
+                  value={formData.destinationPort}
+                  onChange={(e) => setFormData({ ...formData, destinationPort: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-950 text-white border border-slate-800 text-xs focus:outline-none focus:border-sky-500"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                  Work Email Address *
+                </label>
+                <input
+                  type="email"
+                  required
+                  placeholder="procurement@company.com"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-950 text-white border border-slate-800 text-xs focus:outline-none focus:border-sky-500"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                  Phone / WhatsApp Number (with Country Code) *
+                </label>
+                <input
+                  type="tel"
+                  required
+                  placeholder="+1 (555) 000-0000"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-950 text-white border border-slate-800 text-xs focus:outline-none focus:border-sky-500"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="text-xs font-bold text-slate-300 block mb-1.5">
+                  Special Notes / Delivery Timeline (Optional)
+                </label>
+                <textarea
+                  rows={3}
+                  placeholder="Specify target delivery date, preferred vessel line, or payment term preferences (LC/TT)..."
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-950 text-white border border-slate-800 text-xs focus:outline-none focus:border-sky-500"
+                />
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+              <span className="text-[11px] text-slate-400">
+                ✓ Guaranteed response within 12-24 business hours.
+              </span>
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-8 py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-xs transition-colors shadow-lg shadow-sky-600/20 flex items-center gap-2"
+              >
+                {loading ? "Generating RFQ..." : "Submit Quotation Request"}
+                <Send className="w-4 h-4" />
+              </button>
+            </div>
+          </form>
+        )}
+      </section>
+    </main>
   );
 }
 
 export default function RequestQuotePage() {
   return (
-    <div className="w-full bg-apex-white dark:bg-zinc-950 py-12 sm:py-20 transition-colors">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center space-y-4 mb-14">
-          <span className="text-xs uppercase tracking-widest text-apex-purple font-bold bg-apex-purple-light px-3.5 py-1.5 rounded-full">
-            Institutional RFQ Desk
-          </span>
-          <h1 className="text-4xl sm:text-5xl font-black text-apex-dark dark:text-white tracking-tight">
-            Request Official Quotation
-          </h1>
-          <p className="text-sm sm:text-base text-apex-grey dark:text-gray-300 max-w-xl mx-auto">
-            Receive a transparent direct-factory quote complete with lead time, packaging details, and maritime freight estimates within 12 hours.
-          </p>
-        </div>
-
-        <Suspense fallback={
-          <div className="text-center py-12 text-apex-grey font-medium">Loading Quotation Form...</div>
-        }>
-          <RequestQuoteFormContent />
-        </Suspense>
-      </div>
-    </div>
+    <Suspense fallback={<div className="min-h-screen bg-slate-950 text-white p-20 text-center">Loading RFQ Form...</div>}>
+      <RequestQuoteContent />
+    </Suspense>
   );
 }
