@@ -22,13 +22,10 @@ export default function HomePage() {
 
   return (
     <div className="w-full bg-gradient-to-b from-slate-50/50 via-white to-gray-50/50 dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950">
-      {/* SECTION 1: HERO */}
+      {/* SECTION 1: HERO (ENTRY PAGE) */}
       <Hero />
 
-      {/* SECTION 2: COMPANY INTRO */}
-      <CompanyIntro />
-
-      {/* SECTION 3: INDUSTRIAL MATERIALS */}
+      {/* SECTION 2: INDUSTRIAL MATERIALS */}
       <CategorySection
         categoryId="industrial"
         categoryName="Industrial Materials"
@@ -38,7 +35,7 @@ export default function HomePage() {
         onQuickView={(p) => setSelectedProduct(p)}
       />
 
-      {/* SECTION 4: TEXTILES (PURE SILK ONLY) */}
+      {/* SECTION 3: TEXTILES (PURE SILK ONLY) */}
       <CategorySection
         categoryId="textiles"
         categoryName="Textiles & Pure Silk"
@@ -48,7 +45,7 @@ export default function HomePage() {
         onQuickView={(p) => setSelectedProduct(p)}
       />
 
-      {/* SECTION 5: FOOD PRODUCTS */}
+      {/* SECTION 4: FOOD PRODUCTS */}
       <CategorySection
         categoryId="food"
         categoryName="Food Products"
@@ -58,7 +55,7 @@ export default function HomePage() {
         onQuickView={(p) => setSelectedProduct(p)}
       />
 
-      {/* SECTION 6: CONSTRUCTION MATERIALS */}
+      {/* SECTION 5: CONSTRUCTION MATERIALS */}
       <CategorySection
         categoryId="construction"
         categoryName="Construction Materials"
@@ -67,6 +64,9 @@ export default function HomePage() {
         products={constProducts}
         onQuickView={(p) => setSelectedProduct(p)}
       />
+
+      {/* SECTION 6: COMPANY INTRO */}
+      <CompanyIntro />
 
       {/* SECTION 7: WHY CHOOSE US */}
       <WhyChooseUs />
