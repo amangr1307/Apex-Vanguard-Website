@@ -90,8 +90,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <span className="text-xs font-bold uppercase tracking-wider text-gray-400 block">Direct WhatsApp Desk</span>
-                  <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="text-sm font-semibold text-emerald-500 hover:underline mt-1 block">
-                    +91 98765 43210 (24/7 Priority Desk)
+                  <a href="https://wa.me/919731138068" target="_blank" rel="noreferrer" className="text-sm font-semibold text-emerald-500 hover:underline mt-1 block">
+                    +91 97311 38068 (24/7 Priority Desk)
                   </a>
                 </div>
               </div>

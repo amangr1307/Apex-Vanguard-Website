@@ -15,56 +15,56 @@ import Link from "next/link";
 export default function HomePage() {
   const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(null);
 
-  const foodProducts = PRODUCTS_DATA.filter((p) => p.category === "food");
-  const constProducts = PRODUCTS_DATA.filter((p) => p.category === "construction");
   const indProducts = PRODUCTS_DATA.filter((p) => p.category === "industrial");
   const texProducts = PRODUCTS_DATA.filter((p) => p.category === "textiles");
+  const foodProducts = PRODUCTS_DATA.filter((p) => p.category === "food");
+  const constProducts = PRODUCTS_DATA.filter((p) => p.category === "construction");
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-gradient-to-b from-slate-50/50 via-white to-gray-50/50 dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950">
       {/* SECTION 1: HERO */}
       <Hero />
 
       {/* SECTION 2: COMPANY INTRO */}
       <CompanyIntro />
 
-      {/* SECTION 3: FOOD PRODUCTS */}
-      <CategorySection
-        categoryId="food"
-        categoryName="Food Products"
-        subtitle="Premium agricultural exports sourced from trusted Indian manufacturers."
-        bannerImage={CATEGORIES_INFO[0].bannerImage}
-        products={foodProducts}
-        onQuickView={(p) => setSelectedProduct(p)}
-      />
-
-      {/* SECTION 4: CONSTRUCTION MATERIALS */}
-      <CategorySection
-        categoryId="construction"
-        categoryName="Construction Materials"
-        subtitle="Architectural natural marble slabs, high-yield TMT structural steel, and hollow masonry blocks."
-        bannerImage={CATEGORIES_INFO[1].bannerImage}
-        products={constProducts}
-        onQuickView={(p) => setSelectedProduct(p)}
-      />
-
-      {/* SECTION 5: INDUSTRIAL MATERIALS */}
+      {/* SECTION 3: INDUSTRIAL MATERIALS */}
       <CategorySection
         categoryId="industrial"
         categoryName="Industrial Materials"
-        subtitle="High-purity electrolytic copper cathodes, custom uPVC profiles, and engineering polymers."
-        bannerImage={CATEGORIES_INFO[2].bannerImage}
+        subtitle="High-purity electrolytic copper cathodes, custom uPVC profiles, and engineering polymer resins."
+        bannerImage={CATEGORIES_INFO[0].bannerImage}
         products={indProducts}
         onQuickView={(p) => setSelectedProduct(p)}
       />
 
-      {/* SECTION 6: TEXTILES */}
+      {/* SECTION 4: TEXTILES (PURE SILK ONLY) */}
       <CategorySection
         categoryId="textiles"
-        categoryName="Textiles"
-        subtitle="Pure Mulberry & Tussar silk fabrics, organic combed cotton yarns, and industrial duck canvas."
-        bannerImage={CATEGORIES_INFO[3].bannerImage}
+        categoryName="Textiles & Pure Silk"
+        subtitle="Exquisite 100% Grade 6A pure Mulberry silk, handloom raw Tussar silk dupion, and pure silk yarns."
+        bannerImage={CATEGORIES_INFO[1].bannerImage}
         products={texProducts}
+        onQuickView={(p) => setSelectedProduct(p)}
+      />
+
+      {/* SECTION 5: FOOD PRODUCTS */}
+      <CategorySection
+        categoryId="food"
+        categoryName="Food Products"
+        subtitle="Premium agricultural exports sourced directly from audited Indian farm cooperatives under APEDA standards."
+        bannerImage={CATEGORIES_INFO[2].bannerImage}
+        products={foodProducts}
+        onQuickView={(p) => setSelectedProduct(p)}
+      />
+
+      {/* SECTION 6: CONSTRUCTION MATERIALS */}
+      <CategorySection
+        categoryId="construction"
+        categoryName="Construction Materials"
+        subtitle="Architectural natural Makrana marble slabs, high-yield TMT structural steel rebars, and hollow masonry blocks."
+        bannerImage={CATEGORIES_INFO[3].bannerImage}
+        products={constProducts}
         onQuickView={(p) => setSelectedProduct(p)}
       />
 

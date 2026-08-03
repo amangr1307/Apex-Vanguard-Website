@@ -44,10 +44,10 @@ export default function ProductsPage() {
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
             {[
               { id: "all", label: "All Categories" },
+              { id: "industrial", label: "Industrial Materials" },
+              { id: "textiles", label: "Textiles & Pure Silk" },
               { id: "food", label: "Food Products" },
               { id: "construction", label: "Construction Materials" },
-              { id: "industrial", label: "Industrial Materials" },
-              { id: "textiles", label: "Textiles" },
             ].map((tab) => (
               <button
                 key={tab.id}

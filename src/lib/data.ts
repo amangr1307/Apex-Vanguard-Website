@@ -2,7 +2,7 @@ export interface ProductItem {
   id: string;
   name: string;
   slug: string;
-  category: "food" | "construction" | "industrial" | "textiles";
+  category: "industrial" | "textiles" | "food" | "construction";
   categoryName: string;
   shortDescription: string;
   fullDescription: string;
@@ -19,7 +19,148 @@ export interface ProductItem {
 }
 
 export const PRODUCTS_DATA: ProductItem[] = [
-  // FOOD PRODUCTS
+  // 1. INDUSTRIAL MATERIALS
+  {
+    id: "ind-1",
+    name: "Electrolytic Copper Cathodes & Wire Rods",
+    slug: "copper-cathodes-rods",
+    category: "industrial",
+    categoryName: "Industrial Materials",
+    shortDescription: "99.99% Ultra-pure electrolytic grade-A copper cathodes and continuous cast rods.",
+    fullDescription: "High-conductivity copper manufactured for electrical transformers, cable extrusion, motors, and electronic conductors. Meets LME Grade A purity parameters.",
+    specifications: [
+      "Purity: 99.99% Cu",
+      "Oxygen Content: < 10 ppm",
+      "Electrical Conductivity: 101% IACS",
+      "Standard: ASTM B115 / BS EN 1978"
+    ],
+    applications: ["Cable & Wire Manufacturing", "Electrical Transformers", "HVAC Coil Tubing", "Power Distribution"],
+    availableSizes: ["Cathodes (914 x 914mm)", "Rods (8mm, 12.5mm diameter)"],
+    packagingOptions: ["Steel Strapped Bundles on Wooden Skids (2.5 Tons/Bundle)"],
+    countryOfOrigin: "India",
+    moq: "25 Metric Tons",
+    deliveryTime: "14 - 28 Days",
+    imageUrl: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1000&q=80",
+    featured: true,
+  },
+  {
+    id: "ind-2",
+    name: "Rigid & Flexible PVC Extrusions",
+    slug: "pvc-extrusion-profiles",
+    category: "industrial",
+    categoryName: "Industrial Materials",
+    shortDescription: "Custom engineered uPVC & flexible PVC profiles, conduit pipes, and technical extrusions.",
+    fullDescription: "UV-stabilized, impact-resistant PVC profiles manufactured with high-precision extruder dies. Designed for window framing, electrical trunking, and seal gaskets.",
+    specifications: [
+      "Density: 1.38 - 1.42 g/cm³",
+      "Vicat Softening Temp: > 80°C",
+      "Tensile Strength: > 45 MPa",
+      "Standards: DIN 16941 / ISO 1163"
+    ],
+    applications: ["Fenestration Systems", "Electrical Enclosures", "Automotive Door Seals", "Fluid Transport"],
+    availableSizes: ["Custom Profiles per Engineering Drawings (Lengths up to 6 Meters)"],
+    packagingOptions: ["Protective PE Film & Heavy-Duty Carton Bundles"],
+    countryOfOrigin: "India",
+    moq: "3 Metric Tons",
+    deliveryTime: "15 - 20 Days",
+    imageUrl: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1000&q=80",
+    featured: false,
+  },
+  {
+    id: "ind-3",
+    name: "Industrial Polymer Resins (HDPE/LLDPE/PP)",
+    slug: "industrial-polymers",
+    category: "industrial",
+    categoryName: "Industrial Materials",
+    shortDescription: "Virgin blow molding, injection grade HDPE, LLDPE film, and Polypropylene granules.",
+    fullDescription: "First-tier petrochemical polymer resins sourced from Reliance & IOCL refineries. Uniform melt flow index (MFI) and stress-crack resistance for plastic manufacturing.",
+    specifications: [
+      "Melt Flow Index (MFI): 0.3 - 20 g/10min",
+      "Density: 0.918 - 0.960 g/cm³",
+      "Grade: Film, Blow Molding, Injection Molding, Pipe Grade"
+    ],
+    applications: ["Packaging Films", "Industrial Containers", "Automotive Components", "Irrigation Pipes"],
+    availableSizes: ["25kg Pellets Bags"],
+    packagingOptions: ["25kg PP Woven Bags on Heat-Treated Pallets (1.5 Tons/Pallet)"],
+    countryOfOrigin: "India",
+    moq: "20 Metric Tons",
+    deliveryTime: "10 - 15 Days",
+    imageUrl: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1000&q=80",
+    featured: false,
+  },
+
+  // 2. TEXTILES (PURE SILK ONLY)
+  {
+    id: "tex-1",
+    name: "Pure Mulberry & Tussar Silk Fabrics",
+    slug: "mulberry-tussar-silk",
+    category: "textiles",
+    categoryName: "Textiles & Pure Silk",
+    shortDescription: "Hand-spun 100% pure silk fabrics produced by artisan weaving hubs in Mysore and Bhagalpur.",
+    fullDescription: "Lustrous Mulberry, Raw Tussar, and Matka silks dyed using eco-friendly OEKO-TEX certified reactive dyes. Unmatched drape, natural shine, and tensile resilience.",
+    specifications: [
+      "Purity: 100% Grade 6A Pure Mulberry & Tussar Silk",
+      "Weave: Plain, Satin, Dupion, Georgette",
+      "Momme Weight: 12mm to 40mm",
+      "Certification: Silk Mark India Certified"
+    ],
+    applications: ["Haute Couture Apparel", "Luxury Home Textiles", "Scarves & Stoles", "Bridal Wear"],
+    availableSizes: ["Rolls of 50 Meters / 100 Meters (44\" & 54\" Width)"],
+    packagingOptions: ["Vacuum-Sealed Poly Bags inside Master Export Cartons"],
+    countryOfOrigin: "India (Karnataka & Bihar)",
+    moq: "500 Meters",
+    deliveryTime: "15 - 25 Days",
+    imageUrl: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1000&q=80",
+    featured: true,
+  },
+  {
+    id: "tex-2",
+    name: "Raw Silk Dupion & Jacquard Brocades",
+    slug: "raw-silk-dupion-brocades",
+    category: "textiles",
+    categoryName: "Textiles & Pure Silk",
+    shortDescription: "100% Pure Raw Silk Dupion woven with crisp slub texture and metallic zari jacquard motifs.",
+    fullDescription: "Handloom woven raw silk dupion and royal Banarasi silk brocades. Rich handfeel, vibrant iridescent luster, certified pure silk Mark authentic export grade.",
+    specifications: [
+      "Composition: 100% Pure Handloom Silk",
+      "GSM: 80 GSM - 140 GSM",
+      "Finish: Natural Slub Crisp Finish",
+      "Testing: ISO 105 Color Fastness Passed"
+    ],
+    applications: ["High-End Evening Wear", "Bespoke Upholstery", "Designer Fashion Collections", "Luxury Drapery"],
+    availableSizes: ["Rolls of 30 Meters / 50 Meters"],
+    packagingOptions: ["Moisture-Barrier Sealed Rolls in Heavy-Duty Tubes"],
+    countryOfOrigin: "India (Varanasi & Karnataka)",
+    moq: "300 Meters",
+    deliveryTime: "14 - 20 Days",
+    imageUrl: "https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&w=1000&q=80",
+    featured: true,
+  },
+  {
+    id: "tex-3",
+    name: "Organic Mulberry Silk Yarns & Spun Thread",
+    slug: "mulberry-silk-yarns-thread",
+    category: "textiles",
+    categoryName: "Textiles & Pure Silk",
+    shortDescription: "High-tenacity 100% reeled Mulberry silk yarn cones and silk embroidery spools.",
+    fullDescription: "Export grade cultivated Mulberry silk yarn produced on automated multi-end reeling machines. Low friction, even denier consistency for high-speed luxury knitting and weaving.",
+    specifications: [
+      "Denier: 20/22D, 28/30D, 40/44D",
+      "Purity: 100% Raw Reeled Silk",
+      "Elongation: 18% - 22%",
+      "Tenacity: Min 3.8 g/denier"
+    ],
+    applications: ["Luxury Jacquard Weaving", "Silk Embroidery", "Hosiery & Knitwear", "High-End Thread Stock"],
+    availableSizes: ["Cones of 500g / 1kg"],
+    packagingOptions: ["Export Cartons of 20 Cones with Silica Gel Desiccants"],
+    countryOfOrigin: "India (Karnataka)",
+    moq: "100 kg",
+    deliveryTime: "10 - 15 Days",
+    imageUrl: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1000&q=80",
+    featured: false,
+  },
+
+  // 3. FOOD PRODUCTS
   {
     id: "food-1",
     name: "Mature Husked Coconut",
@@ -113,7 +254,7 @@ export const PRODUCTS_DATA: ProductItem[] = [
     featured: false,
   },
 
-  // CONSTRUCTION MATERIALS
+  // 4. CONSTRUCTION MATERIALS
   {
     id: "const-1",
     name: "Indian Makrana & Premium Granite Slabs",
@@ -180,152 +321,24 @@ export const PRODUCTS_DATA: ProductItem[] = [
     countryOfOrigin: "India",
     moq: "1 x 40ft Container",
     deliveryTime: "10 - 15 Days",
-    imageUrl: "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=1000&q=80",
-    featured: false,
-  },
-
-  // INDUSTRIAL MATERIALS
-  {
-    id: "ind-1",
-    name: "Electrolytic Copper Cathodes & Wire Rods",
-    slug: "copper-cathodes-rods",
-    category: "industrial",
-    categoryName: "Industrial Materials",
-    shortDescription: "99.99% Ultra-pure electrolytic grade-A copper cathodes and continuous cast rods.",
-    fullDescription: "High-conductivity copper manufactured for electrical transformers, cable extrusion, motors, and electronic conductors. Meets LME Grade A purity parameters.",
-    specifications: [
-      "Purity: 99.99% Cu",
-      "Oxygen Content: < 10 ppm",
-      "Electrical Conductivity: 101% IACS",
-      "Standard: ASTM B115 / BS EN 1978"
-    ],
-    applications: ["Cable & Wire Manufacturing", "Electrical Transformers", "HVAC Coil Tubing", "Power Distribution"],
-    availableSizes: ["Cathodes (914 x 914mm)", "Rods (8mm, 12.5mm diameter)"],
-    packagingOptions: ["Steel Strapped Bundles on Wooden Skids (2.5 Tons/Bundle)"],
-    countryOfOrigin: "India",
-    moq: "25 Metric Tons",
-    deliveryTime: "14 - 28 Days",
-    imageUrl: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1000&q=80",
-    featured: true,
-  },
-  {
-    id: "ind-2",
-    name: "Rigid & Flexible PVC Extrusions",
-    slug: "pvc-extrusion-profiles",
-    category: "industrial",
-    categoryName: "Industrial Materials",
-    shortDescription: "Custom engineered uPVC & flexible PVC profiles, conduit pipes, and technical extrusions.",
-    fullDescription: "UV-stabilized, impact-resistant PVC profiles manufactured with high-precision extruder dies. Designed for window framing, electrical trunking, and seal gaskets.",
-    specifications: [
-      "Density: 1.38 - 1.42 g/cm³",
-      "Vicat Softening Temp: > 80°C",
-      "Tensile Strength: > 45 MPa",
-      "Standards: DIN 16941 / ISO 1163"
-    ],
-    applications: ["Fenestration Systems", "Electrical Enclosures", "Automotive Door Seals", "Fluid Transport"],
-    availableSizes: ["Custom Profiles per Engineering Drawings (Lengths up to 6 Meters)"],
-    packagingOptions: ["Protective PE Film & Heavy-Duty Carton Bundles"],
-    countryOfOrigin: "India",
-    moq: "3 Metric Tons",
-    deliveryTime: "15 - 20 Days",
-    imageUrl: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=1000&q=80",
-    featured: false,
-  },
-  {
-    id: "ind-3",
-    name: "Industrial Polymer Resins (HDPE/LLDPE/PP)",
-    slug: "industrial-polymers",
-    category: "industrial",
-    categoryName: "Industrial Materials",
-    shortDescription: "Virgin blow molding, injection grade HDPE, LLDPE film, and Polypropylene granules.",
-    fullDescription: "First-tier petrochemical polymer resins sourced from Reliance & IOCL refineries. Uniform melt flow index (MFI) and stress-crack resistance for plastic manufacturing.",
-    specifications: [
-      "Melt Flow Index (MFI): 0.3 - 20 g/10min",
-      "Density: 0.918 - 0.960 g/cm³",
-      "Grade: Film, Blow Molding, Injection Molding, Pipe Grade"
-    ],
-    applications: ["Packaging Films", "Industrial Containers", "Automotive Components", "Irrigation Pipes"],
-    availableSizes: ["25kg Pellets Bags"],
-    packagingOptions: ["25kg PP Woven Bags on Heat-Treated Pallets (1.5 Tons/Pallet)"],
-    countryOfOrigin: "India",
-    moq: "20 Metric Tons",
-    deliveryTime: "10 - 15 Days",
-    imageUrl: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1000&q=80",
-    featured: false,
-  },
-
-  // TEXTILES
-  {
-    id: "tex-1",
-    name: "Pure Mulberry & Tussar Silk Fabrics",
-    slug: "mulberry-tussar-silk",
-    category: "textiles",
-    categoryName: "Textiles",
-    shortDescription: "Hand-spun 100% pure silk fabrics produced by artisan weaving hubs in Mysore and Bhagalpur.",
-    fullDescription: "Lustrous Mulberry, Raw Tussar, and Matka silks dyed using eco-friendly OEKO-TEX certified reactive dyes. Unmatched drape, natural shine, and tensile resilience.",
-    specifications: [
-      "Weave: Plain, Satin, Dupion, Georgette",
-      "Momme Weight: 12mm to 40mm",
-      "Width: 44 Inch / 54 Inch",
-      "Certification: Silk Mark India Certified"
-    ],
-    applications: ["Haute Couture Apparel", "Luxury Home Textiles", "Scarves & Stoles", "Bridal Wear"],
-    availableSizes: ["Rolls of 50 Meters / 100 Meters"],
-    packagingOptions: ["Vacuum-Sealed Poly Bags inside Master Export Cartons"],
-    countryOfOrigin: "India (Karnataka & Bihar)",
-    moq: "500 Meters",
-    deliveryTime: "15 - 25 Days",
-    imageUrl: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1000&q=80",
-    featured: true,
-  },
-  {
-    id: "tex-2",
-    name: "Organic Combed Cotton Yarns (Ne 20s - Ne 80s)",
-    slug: "combed-cotton-yarn",
-    category: "textiles",
-    categoryName: "Textiles",
-    shortDescription: "GOTS-certified 100% organic long-staple combed cotton ring-spun yarns.",
-    fullDescription: "Ultra-low contamination cotton yarn spun from Gujarat Shankar-6 long staple raw cotton. Exceptional evenness, high breaking tenacity, perfect for high-speed circular knitting.",
-    specifications: [
-      "Count Range: Ne 20/1 to Ne 80/2",
-      "Staple Length: 29mm - 32mm",
-      "IPI Value: < 50",
-      "Tenacity: > 18.5 cN/tex"
-    ],
-    applications: ["Knitting & Weaving", "Denim Manufacturing", "Bedding & Towels", "Activewear"],
-    availableSizes: ["Paper Cones of 1.89kg / 2.15kg"],
-    packagingOptions: ["Cartons of 24 Cones / PP Woven Bag Pallets"],
-    countryOfOrigin: "India (Gujarat & Tamil Nadu)",
-    moq: "1 x 20ft Container (approx. 10 Metric Tons)",
-    deliveryTime: "12 - 18 Days",
-    imageUrl: "https://images.unsplash.com/photo-1606760227091-3dd850d97f1d?auto=format&fit=crop&w=1000&q=80",
-    featured: false,
-  },
-  {
-    id: "tex-3",
-    name: "Heavyweight Canvas & Greige Textiles",
-    slug: "textile-raw-materials-canvas",
-    category: "textiles",
-    categoryName: "Textiles",
-    shortDescription: "Unbleached industrial duck canvas, greige woven cloth, and jute blended sacking fabrics.",
-    fullDescription: "High-density heavy oz cotton duck and greige cloth manufactured on air-jet looms. Treated for tensile load, water repellency, and heavy-duty industrial utility.",
-    specifications: [
-      "Weight: 8 oz/yd² to 24 oz/yd² (270 GSM - 800 GSM)",
-      "Width: 36 Inch to 120 Inch",
-      "Weave: Plain 1x1, Duck 2x2, Twill"
-    ],
-    applications: ["Tents & Tarpaulins", "Tote Bags & Footwear", "Industrial Filtration", "Upholstery Base"],
-    availableSizes: ["Rolls of 100 Yards"],
-    packagingOptions: ["Heavy Duty Moisture-Proof Poly Wrapping with HDPE Outer Cover"],
-    countryOfOrigin: "India",
-    moq: "3,000 Meters",
-    deliveryTime: "14 - 20 Days",
-    imageUrl: "https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&w=1000&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1000&q=80",
     featured: false,
   }
 ];
 
 export const CATEGORIES_INFO = [
+  {
+    id: "industrial",
+    name: "Industrial Materials",
+    description: "High-purity electrolytic copper cathodes, custom PVC extrusions, engineering polymers, and industrial synthetic rubbers.",
+    bannerImage: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1600&q=80",
+  },
+  {
+    id: "textiles",
+    name: "Textiles & Pure Silk",
+    description: "Exquisite 100% pure Mulberry silk fabrics, raw Tussar silk, luxury Jacquard silk brocades, and organic silk yarns.",
+    bannerImage: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1600&q=80",
+  },
   {
     id: "food",
     name: "Food Products",
@@ -336,18 +349,6 @@ export const CATEGORIES_INFO = [
     id: "construction",
     name: "Construction Materials",
     description: "Structural TMT steel, architectural Makrana marble slabs, granite tiles, and AAC hollow building masonry.",
-    bannerImage: "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    id: "industrial",
-    name: "Industrial Materials",
-    description: "High-purity electrolytic copper cathodes, custom PVC extrusions, engineering polymers, and industrial synthetic rubbers.",
-    bannerImage: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1600&q=80",
-  },
-  {
-    id: "textiles",
-    name: "Textiles",
-    description: "Organic combed cotton yarns, pure Mulberry & Tussar silk fabrics, greige cloth, and heavy industrial duck canvas.",
-    bannerImage: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=1600&q=80",
+    bannerImage: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=80",
   },
 ];

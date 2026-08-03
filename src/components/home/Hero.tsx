@@ -3,11 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight, ShieldCheck, Play, Sparkles } from "lucide-react";
+import { ArrowUpRight, ShieldCheck, Play } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative w-full h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-apex-dark text-white -mt-20">
+    <section className="relative w-full min-h-[750px] sm:min-h-screen flex items-center justify-center overflow-hidden bg-apex-dark text-white -mt-24 sm:-mt-28 pt-12 sm:pt-0">
       {/* Background Image with Slow Zoom */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -24,7 +24,7 @@ export default function Hero() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-16 sm:pt-20">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-32 sm:pt-40 lg:pt-44 pb-16">
         {/* Verification Pill */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -83,17 +83,6 @@ export default function Hero() {
             <span>Request Quote</span>
             <ArrowUpRight className="w-5 h-5" />
           </Link>
-        </motion.div>
-
-        {/* AI Video Reel Badge Placeholder */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="mt-14 inline-flex items-center gap-2 text-xs text-zinc-400 bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-800"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-apex-purple" />
-          <span>Cinematic Preview Mode (AI Video Ready)</span>
         </motion.div>
       </div>
 

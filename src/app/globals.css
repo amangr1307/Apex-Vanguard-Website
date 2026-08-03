@@ -30,15 +30,15 @@ html {
 }
 
 body {
-  background-color: theme('colors.apex.white');
-  color: theme('colors.apex.dark');
+  background-color: #ffffff;
+  color: #111111;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dark body {
-  background-color: theme('colors.apex.dark');
-  color: theme('colors.apex.white');
+  background-color: #111111;
+  color: #ffffff;
 }
 
 /* Glassmorphism utilities */

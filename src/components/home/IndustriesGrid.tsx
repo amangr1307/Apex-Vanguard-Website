@@ -6,66 +6,66 @@ import { HardHat, Factory, Utensils, Sprout, Car, ShoppingBag, ArrowUpRight } fr
 
 const INDUSTRIES = [
   {
-    name: "Construction",
-    icon: HardHat,
-    desc: "Structural steel, natural marble slabs, tiles, and high-density hollow blocks.",
-    link: "/industries#construction",
+    name: "Heavy Manufacturing",
+    icon: Factory,
+    desc: "Electrolytic copper wire rods, custom PVC extrusion profiles, industrial polymers, and synthetic rubbers.",
+    link: "/industries#manufacturing",
   },
   {
-    name: "Manufacturing",
-    icon: Factory,
-    desc: "Copper wire rods, PVC extrusion profiles, industrial polymers, and synthetic rubbers.",
-    link: "/industries#manufacturing",
+    name: "Textiles & Pure Silk",
+    icon: ShoppingBag,
+    desc: "100% Grade 6A Mulberry silk, handloom raw Tussar silk dupion, and pure silk yarns.",
+    link: "/industries#retail",
   },
   {
     name: "Food Processing",
     icon: Utensils,
-    desc: "Cold pressed oils, high-gluten wheat flour, desiccated coconut, and spices.",
+    desc: "Cold pressed virgin coconut oil, Sharbati wheat flour, husked coconuts, and refined oils.",
     link: "/industries#food-processing",
+  },
+  {
+    name: "Construction",
+    icon: HardHat,
+    desc: "Structural TMT steel rebars, architectural Makrana marble slabs, granite, and AAC hollow blocks.",
+    link: "/industries#construction",
   },
   {
     name: "Agriculture",
     icon: Sprout,
-    desc: "Bulk raw agricultural exports, organic coconut produce, and grain commodities.",
+    desc: "Bulk raw agricultural exports, organic coconut produce, and farm grain commodities.",
     link: "/industries#agriculture",
   },
   {
-    name: "Automotive",
+    name: "Automotive & OEM",
     icon: Car,
     desc: "Precision molded rubber seals, copper wiring harnesses, and alloy components.",
     link: "/industries#automotive",
-  },
-  {
-    name: "Retail & FMCG",
-    icon: ShoppingBag,
-    desc: "Private-label packaged oils, organic silks, consumer textiles, and packaged food.",
-    link: "/industries#retail",
   },
 ];
 
 export default function IndustriesGrid() {
   return (
-    <section className="py-28 sm:py-36 bg-apex-surface dark:bg-zinc-950 transition-colors">
+    <section className="py-24 sm:py-32 bg-gradient-to-b from-white via-slate-50/50 to-white dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">
-            <span className="text-xs uppercase tracking-widest text-apex-purple font-bold bg-apex-purple-light px-3.5 py-1.5 rounded-full">
+            <span className="text-xs uppercase tracking-widest text-apex-purple font-extrabold bg-apex-purple/10 border border-apex-purple/20 px-3.5 py-1.5 rounded-full">
               Sourcing Sectors
             </span>
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-apex-dark dark:text-white mt-4">
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-apex-dark dark:text-white mt-4">
               Industries We Serve
             </h2>
-            <p className="text-sm sm:text-base text-apex-grey dark:text-gray-400 mt-2">
-              Custom tailored export procurement workflows tailored for multinational enterprises across 6 major sectors.
+            <p className="text-sm sm:text-base text-zinc-500 dark:text-gray-400 mt-2 font-normal">
+              Custom tailored export procurement workflows engineered for multinational enterprises across 6 major sectors.
             </p>
           </div>
 
           <Link
             href="/industries"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-apex-purple hover:underline"
+            className="inline-flex items-center gap-2 text-sm font-bold text-apex-purple hover:underline"
           >
             <span>View All Sector Specifications</span>
-            <ArrowUpRight className="w-4 h-4" />
+            <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
           </Link>
         </div>
 
@@ -83,18 +83,18 @@ export default function IndustriesGrid() {
               >
                 <Link
                   href={ind.link}
-                  className="block h-full bg-white dark:bg-zinc-900 p-8 rounded-3xl border border-apex-border dark:border-apex-borderDark shadow-apex-soft hover:shadow-apex-hover transition-all duration-400 hover:-translate-y-1.5 group"
+                  className="block h-full bg-white dark:bg-zinc-900 p-8 rounded-2xl border border-slate-200/80 dark:border-zinc-800 shadow-xl shadow-slate-200/40 dark:shadow-none hover:shadow-2xl hover:shadow-purple-500/15 transition-all duration-400 hover:-translate-y-1.5 group"
                 >
                   <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-apex-surface dark:bg-zinc-800 text-apex-dark dark:text-white group-hover:bg-apex-purple group-hover:text-white flex items-center justify-center transition-colors">
+                    <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-zinc-800 text-apex-dark dark:text-white group-hover:bg-apex-purple group-hover:text-white flex items-center justify-center transition-colors shadow-sm">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <ArrowUpRight className="w-5 h-5 text-gray-400 group-hover:text-apex-purple group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+                    <ArrowUpRight className="w-5 h-5 text-gray-400 group-hover:text-apex-purple group-hover:translate-x-1 group-hover:-translate-y-1 transition-all stroke-[2.5]" />
                   </div>
-                  <h3 className="text-xl font-bold text-apex-dark dark:text-white mb-2 group-hover:text-apex-purple transition-colors">
+                  <h3 className="text-xl font-extrabold text-apex-dark dark:text-white mb-2 group-hover:text-apex-purple transition-colors tracking-tight">
                     {ind.name}
                   </h3>
-                  <p className="text-xs sm:text-sm text-apex-grey dark:text-gray-400 leading-relaxed font-normal">
+                  <p className="text-xs sm:text-sm text-zinc-500 dark:text-gray-400 leading-relaxed font-normal">
                     {ind.desc}
                   </p>
                 </Link>

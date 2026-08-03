@@ -9,7 +9,7 @@ const INDUSTRY_SECTORS = [
   {
     id: "construction",
     name: "Construction & Infrastructure",
-    image: "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
     description: "Sourcing architectural natural marble, high-yield TMT steel rebars, and AAC hollow masonry blocks for high-rise developments, civil bridges, and commercial estates.",
     highlights: ["IS 1786 & ASTM Compliant Rebars", "Gangsaw Polished Natural Marble Slabs", "Lightweight AAC Thermal Masonry"],
     relatedCategory: "construction",

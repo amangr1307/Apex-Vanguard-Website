@@ -56,7 +56,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col antialiased selection:bg-apex-purple selection:text-white">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <Header />
-          <main className="flex-grow pt-20">{children}</main>
+          <main className="flex-grow pt-24 sm:pt-28">{children}</main>
           <Footer />
           <WhatsAppButton />
         </ThemeProvider>
