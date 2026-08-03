@@ -52,11 +52,11 @@ export default function Header() {
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-apex-purple flex items-center justify-center text-white shadow-md shadow-apex-purple/30 group-hover:scale-105 transition-transform duration-300">
               <Globe className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse" />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col items-center text-center">
               <span className="font-extrabold text-lg sm:text-xl tracking-tight text-apex-dark dark:text-white leading-tight whitespace-nowrap">
                 APEX <span className="text-apex-purple">VANGUARD</span>
               </span>
-              <span className="text-[10px] uppercase tracking-[0.25em] font-bold text-gray-500 dark:text-gray-400 leading-none mt-0.5 whitespace-nowrap">
+              <span className="text-[10px] sm:text-[11px] uppercase font-extrabold text-gray-500 dark:text-gray-400 tracking-[0.25em] pl-[0.25em] leading-none mt-0.5 whitespace-nowrap">
                 GLOBAL
               </span>
             </div>
